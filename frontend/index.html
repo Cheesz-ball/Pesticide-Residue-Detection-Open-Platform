@@ -20,31 +20,44 @@
             <a href="./new" class="top-navbar-links-item">数据库</a>
             <a href="./history" class="top-navbar-links-item">分析历史</a>
             <a href="./report" class="top-navbar-links-item">帮助</a>
-        <div class="top-navbar-profile">
-            <button class="top-navbar-profile-button">
-                <img src="./src/image/QQ.jpg" alt="list" class="top-navbar-profile-image">
-                <span>Name</span>
-            </button>
-            <div class="top-navbar-profile-dropdown">
-                <a href="./profile/test1" class="top-navbar-profile-dropdown-item">
-                    <img src="./src/image/user.png" alt="profile" class="top-navbar-profile-dropdown-image">test
-                </a>
-                <a href="./profile/test1" class="top-navbar-profile-dropdown-item">
-                    <img src="./src/image/user.png" alt="profile" class="top-navbar-profile-dropdown-image">test
-                </a>
-                <a href="./profile/test1" class="top-navbar-profile-dropdown-item">
-                    <img src="./src/image/user.png" alt="profile" class="top-navbar-profile-dropdown-image">test
-                </a>
+            <div class="top-navbar-profile">
+                <button class="top-navbar-profile-button">
+                    <img src="./src/image/QQ.jpg" alt="list" class="top-navbar-profile-image">
+                    <span>Name</span>
+                </button>
+                <div class="top-navbar-profile-dropdown">
+                    <a href="./profile/test1" class="top-navbar-profile-dropdown-item">
+                        <img src="./src/image/user.png" alt="profile" class="top-navbar-profile-dropdown-image">test
+                    </a>
+                    <a href="./profile/test1" class="top-navbar-profile-dropdown-item">
+                        <img src="./src/image/user.png" alt="profile" class="top-navbar-profile-dropdown-image">test
+                    </a>
+                    <a href="./profile/test1" class="top-navbar-profile-dropdown-item">
+                        <img src="./src/image/user.png" alt="profile" class="top-navbar-profile-dropdown-image">test
+                    </a>
+                </div>
             </div>
-        </div>
         </nav>
     </header>
     <main class="main-content">
         <div class="status-card">
-            <a class="status-card-title">当前检测进度</a>
-            <br>
-            <br>
+            <a class="status-card-title">最近检测时间</a>
+            <a id="current_testing_progress" class="status-card-title">等待数据...</a>
         </div>
+
+        <script>
+            fetch('http://localhost:8000/api/get_current_testing_progress')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('current_testing_progress').innerHTML = `
+                    <h2>${data.value}</h2>
+                    `;
+                })
+                .catch(error => {
+                    document.getElementById('current_testing_progress').innerHTML = error;
+                });
+        </script>
+
 
         <div class="status-card">
             <a class="status-card-title">超标率统计</a>
@@ -52,7 +65,41 @@
 
         <div class="status-card">
             <a class="status-card-title">最近检测时间</a>
+            <a id="recent_detection_time" class="status-card-title">等待数据...</a>
         </div>
+
+        <script>
+            fetch('http://localhost:8000/api/get_recent_detection_time')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('recent_detection_time').innerHTML = `
+                    <h2>${data.message}</h2>
+                    `;
+                })
+                .catch(error => {
+                    document.getElementById('recent_detection_time').innerHTML = error;
+                });
+        </script>
+
+
+        <div class="status-card">
+            <a id="all_analysis_sum" class="status-card-title">等待数据...</a>
+        </div>
+
+        <script>
+            fetch('http://127.0.0.1:8000/api/get_all_analysis_sum/')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('all_analysis_sum').innerHTML = `
+                    <a>${data.message}</a>
+                    <h2>${data.value}</h2>
+                `;
+                })
+                .catch(error => {
+                    document.getElementById('all_analysis_sum').textContent = '获取数据失败';
+                });
+        </script>
+
     </main>
     <!--    &lt;!&ndash; 主内容区 &ndash;&gt;-->
     <!--    <main class="main-content">-->

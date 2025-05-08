@@ -172,6 +172,7 @@ body {
 
 .status-card {
     display: flex;
+    flex-direction: column;
     background: #fff;
     padding: 20px;
     flex: 1;
@@ -188,8 +189,14 @@ body {
 }
 
 .status-card-title {
+    display: flex;
+    flex-direction: column;
     font-weight: bold;
+    text-align: center;
 }
 
-
-
+.status-card-title h2 {
+    color: #e67e22;
+    font-weight: bold;
+    text-align: center;
+}
