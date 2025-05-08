@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /* 基础布局 */
+        .status-bar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .status-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .metric {
+            font-size: 2em;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+
+        .red {
+            color: #e74c3c;
+        }
+
+        .progress-bar {
+            background: #ecf0f1;
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress {
+            background: #27ae60;
+            height: 100%;
+            text-align: right;
+            padding-right: 5px;
+            color: white;
+        }
+
+        /* 图表容器 */
+        .visualization {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            height: 400px;
+        }
+
+        .chart {
+            background: white;
+            height: 100%;
+            border-radius: 12px;
+        }
+
+        /* 警报面板 */
+        .alert-panel {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .alert-item {
+            padding: 12px;
+            margin: 10px 0;
+            border-left: 4px solid;
+        }
+
+        .critical {
+            border-color: #e74c3c;
+        }
+
+        .warning {
+            border-color: #f1c40f;
+        }
+    </style>
+</head>
+<body>
+<div class="status-bar">
+    <div class="status-card">
+        <h3>当前检测进度</h3>
+        <div class="progress-bar">
+            <div class="progress" style="width: 75%">75%</div>
+        </div>
+        <p>已检测样本：75/100</p>
+    </div>
+
+    <div class="status-card">
+        <h3>超标率统计</h3>
+        <div class="metric red">12.5%</div>
+        <p>超标样本：10/80</p>
+    </div>
+
+    <div class="status-card">
+        <h3>最近检测时间</h3>
+        <div class="metric">2023-10-25 14:30</div>
+        <p>平均耗时：2.3秒/样本</p>
+    </div>
+</div>
+</body>
+</html>

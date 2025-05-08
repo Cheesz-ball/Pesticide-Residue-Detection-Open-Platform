@@ -1,0 +1,195 @@
+:root {
+    --primary-color: rgb(0, 111, 79);
+    --secondary-color: #ffffff;
+    --gradient-color: rgb(160, 189, 180);
+    --gradient-dropdown-color: rgb(51, 140, 140);
+    --accent-color: #e67e22; /* 强调色-橙色 */
+    --text-color: #ffffff; /* 正文颜色 */
+    --background-color: rgba(15, 66, 53, 0.4);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--background-color);
+}
+
+
+/* 顶部状态栏*/
+.top-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.25rem;
+    background: var(--primary-color);
+}
+
+/*logo整体*/
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+/*logo标题*/
+.logo h1 {
+    font-size: 1.25rem;
+    color: var(--text-color);
+}
+
+/*logo大小*/
+.logo img {
+    height: 40px;
+    padding-right: 20px;
+    margin-inline: 10px;
+}
+
+
+/*导航栏链接*/
+.top-navbar-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 0.5rem 0;
+}
+
+/*导航栏按钮*/
+.top-navbar-links-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: max-content;
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--secondary-color);
+    padding: 0.75rem 1rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+/*导航栏按钮悬停*/
+.top-navbar-links-item:hover {
+    color: var(--primary-color);
+    /*background: rgba(201, 201, 201, 0.7);*/
+    background: var(--text-color);
+    transform: translateY(-2px);
+}
+
+/*顶部状态栏用户侧*/
+.top-navbar-profile {
+    position: relative;
+    display: inline-block;
+}
+
+/*状态栏用户按钮*/
+.top-navbar-profile-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+/*用户头像*/
+.top-navbar-profile-image {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--secondary-color);
+}
+
+/*用户名字*/
+.top-navbar-profile span {
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+/*头像自动下拉样式*/
+.top-navbar-profile-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 100;
+    overflow: hidden;
+}
+
+/*下拉图片*/
+.top-navbar-profile-dropdown-image {
+    width: 15px;
+    object-fit: contain;
+}
+
+.top-navbar-profile:hover .top-navbar-profile-dropdown {
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.top-navbar-profile-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 30px;
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.top-navbar-profile-dropdown-item:hover {
+    background: var(--primary-color);
+    color: var(--text-color);
+}
+
+
+/* 主内容区 */
+.main-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 30px;
+    gap: 1rem;
+}
+
+.status-card {
+    display: flex;
+    background: #fff;
+    padding: 20px;
+    flex: 1;
+    justify-content: center;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.status-card:hover {
+    border-color: #27ae60;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.status-card-title {
+    font-weight: bold;
+}
+
+
+
