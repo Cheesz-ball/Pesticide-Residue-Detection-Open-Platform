@@ -190,6 +190,7 @@ body {
 
 .status-card-title {
     display: flex;
+    flex: 1;
     flex-direction: column;
     font-weight: bold;
     text-align: center;
