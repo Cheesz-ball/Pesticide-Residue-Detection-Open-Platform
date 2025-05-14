@@ -29,7 +29,7 @@ def get_current_testing_progress(request):
 def get_chart_data(request):
     # 模拟数据（实际可从数据库获取）
     data = {
-        "title": "超标率统计",
+        "title": "",
         "categories": ["农药1", "农药2", "农药3", "农药4", "农药5"],
         "series": [
             {
@@ -55,13 +55,19 @@ def get_cpu_mem_usage(request):
             "name":"CPU/内存使用情况",
             "type":"pie",
             "data": [
-                {"value": 1048, "name": 'Search Engine'},
-                {"value": 735, "name": 'Direct'},
-                {"value": 580, "name": 'Email'},
-                {"value": 484, "name": 'Union Ads'},
-                {"value": 300, "name": 'Video Ads'}
+                {"value": 1, "name": '已使用CPU'},
+                {"value": 2, "name": '剩余CPU'},
             ]
-        }
+        },
+            {
+            "name":"内存使用情况",
+                "type":"pie",
+                "data": [
+                    {"value": 3, "name": '已使用内存'},
+                    {"value": 4, "name": '剩余内存'},
+                ]
+
+            }
 
         ]
 

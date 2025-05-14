@@ -21,8 +21,8 @@ from dashboard import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/get_all_analysis_sum/', views.get_all_analysis_sum),
-    path('api/get_recent_detection_time/',views.get_recent_detection_time),
-    path('api/get_current_testing_progress/',views.get_current_testing_progress),
+    path('api/get_recent_detection_time/', views.get_recent_detection_time),
+    path('api/get_current_testing_progress/', views.get_current_testing_progress),
     path('api/chart-data/', views.get_chart_data, name='chart_data'),
     path('api/get_cpu_mem_usage/', views.get_cpu_mem_usage),
 ]
