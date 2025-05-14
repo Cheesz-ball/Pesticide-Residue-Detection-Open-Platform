@@ -1,0 +1,246 @@
+:root {
+    --primary-color: rgb(0, 111, 79);
+    --secondary-color: #ffffff;
+    --gradient-color: rgb(160, 189, 180);
+    --gradient-dropdown-color: rgb(51, 140, 140);
+    --accent-color: #e67e22; /* 强调色-橙色 */
+    --text-color: #ffffff; /* 正文颜色 */
+    --background-color: rgba(15, 66, 53, 0.4);
+}
+/* 主内容区 */
+.main-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 30px;
+    gap: 1rem;
+}
+.main-line-content {
+    display: flex;
+    /*flex-direction: row;*/
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    box-sizing: border-box;
+    gap: 1rem;
+}
+.status-card {
+    min-height: 100px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    flex:1 1 0;
+    background: #fff;
+    padding: 20px;
+    justify-content: center;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.status-card:hover {
+    border-color: #27ae60;
+    border-width: 2px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.status-card-title {
+    font-weight: bold;
+    text-align: center;
+}
+
+.status-card-title h2 {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-align: center;
+}
+
+.chart-container {
+
+    min-height: 300px;
+    flex: 1;
+    min-width: 0;
+}
+
+/*实时监测状态卡*/
+
+.status-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.status-metrics {
+    display: flex;
+    justify-content: space-between;
+}
+
+.metric {
+    text-align: center;
+    flex: 1;
+}
+
+.metric-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+}
+
+.metric-label {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+
+
+/*近期检测记录*/
+/*.activity-container {*/
+/*    width: 800px;*/
+/*    margin: 0 auto;*/
+/*    background: white;*/
+/*    !*padding: 30px;*!*/
+/*    border-radius: 8px;*/
+/*    !*box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);*!*/
+/*}*/
+
+.activity-container h2 {
+    color: #2c3e50;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+}
+
+/* 时间线样式 */
+.activity-timeline {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-left: 50px;
+}
+
+.activity-timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 20px;
+    width: 2px;
+    background: #e0e0e0;
+}
+
+/* 活动卡片样式 */
+.activity-card {
+    position: relative;
+    margin-bottom: 30px;
+    background: #fff;
+    border-radius: 6px;
+    padding: 20px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+}
+
+.activity-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.activity-date {
+    width: 60px;
+    text-align: center;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+.activity-date .day {
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.activity-date .month {
+    display: block;
+    font-size: 14px;
+    color: #95a5a6;
+    text-transform: uppercase;
+}
+
+.activity-content {
+    flex-grow: 1;
+}
+
+.activity-content h3 {
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+    font-size: 18px;
+}
+
+.activity-time {
+    color: #7f8c8d;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.activity-description {
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* 标签样式 */
+.activity-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+}
+
+.activity-tag.project {
+    background-color: #3498db;
+}
+
+.activity-tag.team {
+    background-color: #2ecc71;
+}
+
+.activity-tag.learning {
+    background-color: #9b59b6;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+    .activity-timeline {
+        padding-left: 30px;
+    }
+
+    .activity-card {
+        flex-direction: column;
+    }
+
+    .activity-date {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        width: auto;
+    }
+
+    .activity-date .day {
+        margin-right: 10px;
+    }
+
+    .activity-date .month {
+        margin-right: 10px;
+    }
+
+}

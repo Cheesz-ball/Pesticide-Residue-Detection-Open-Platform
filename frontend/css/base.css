@@ -24,7 +24,7 @@ body {
 /* 顶部状态栏*/
 .top-navbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     padding: 0.25rem;
     background: var(--primary-color);
@@ -49,6 +49,9 @@ body {
     margin-inline: 10px;
 }
 
+.slogan {
+    height: 40px;
+}
 
 /*导航栏链接*/
 .top-navbar-links {
@@ -160,43 +163,75 @@ body {
 }
 
 
-/* 主内容区 */
-.main-content {
+/*末尾栏*/
+/* 底部区域样式 */
+footer {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 50px 0 20px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     flex-wrap: wrap;
-    padding: 30px;
-    gap: 1rem;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 0 20px;
 }
 
-.status-card {
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    padding: 20px;
+.footer-section {
     flex: 1;
-    justify-content: center;
-    border: 2px solid transparent;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    min-width: 250px;
 }
 
-.status-card:hover {
-    border-color: #27ae60;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+.footer-section h3 {
+    color: white;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--primary-color);
 }
 
-.status-card-title {
+.footer-section p {
+    margin-bottom: 15px;
+    color: #ccc;
+}
+
+.contact p {
     display: flex;
-    flex-direction: column;
-    font-weight: bold;
-    text-align: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
-.status-card-title h2 {
-    color: #e67e22;
-    font-weight: bold;
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: #ccc;
+    transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+    color: white;
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 30px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid var(--primary-color);
     text-align: center;
+    color: #aaa;
+}
+
+@media (max-width: 1200px) {
+    .logo img {
+        display: none
+    }
+    img.slogan {
+        display: none;
+    }
 }

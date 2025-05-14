@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>农药残留检测开放平台</title>
+    <link href="css/base.css" rel="stylesheet">
+    <link href="./css/dashboard.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js"></script>
+</head>
+<body>
+<div>
+    <header class="top-navbar">
+        <div class="logo">
+            <img alt="农药检测" src="./src/image/logo.png">
+            <h1>农药残留开放检测平台</h1>
+        </div>
+        <img alt="校训" class="slogan" src="./src/image/slogan.png">
+        <nav class="top-navbar-links">
+            <a class="top-navbar-links-item" href="dashboard.html">检测仪表盘</a>
+            <a class="top-navbar-links-item" href="analysis.html">检测服务</a>
+            <a class="top-navbar-links-item" href="./new">数据库</a>
+            <a class="top-navbar-links-item" href="./history">分析历史</a>
+            <a class="top-navbar-links-item" href="./report">帮助</a>
+            <div class="top-navbar-profile">
+                <button class="top-navbar-profile-button">
+                    <img alt="list" class="top-navbar-profile-image" src="./src/image/QQ.jpg">
+                    <span>Name</span>
+                </button>
+                <div class="top-navbar-profile-dropdown">
+                    <a class="top-navbar-profile-dropdown-item" href="./profile/test1">
+                        <img alt="profile" class="top-navbar-profile-dropdown-image" src="./src/image/user.png">test
+                    </a>
+                    <a class="top-navbar-profile-dropdown-item" href="./profile/test1">
+                        <img alt="profile" class="top-navbar-profile-dropdown-image" src="./src/image/user.png">test
+                    </a>
+                    <a class="top-navbar-profile-dropdown-item" href="./profile/test1">
+                        <img alt="profile" class="top-navbar-profile-dropdown-image" src="./src/image/user.png">test
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="main-content">
+        <!--第一行-->
+        <div class="main-line-content">
+            <!--        农药超标率统计-->
+            <div class="status-card">
+                <h3 class="status-card-title">农药超标率统计</h3>
+                <div class="chart-container" id="exceeding_rate"></div>
+            </div>
+
+            <div class="status-card">
+                <h3 class="status-card-title">本周/月异常样本趋势</h3>
+                <div class="chart-container" id="abnormal_trend"></div>
+            </div>
+            <script>
+                const exceeding_rate = echarts.init(document.getElementById('exceeding_rate'));
+                fetch('http://127.0.0.1:8000/api/chart-data/')
+                    .then(response => response.json())
+                    .then(data => {
+                        // 动态生成图表配置
+                        const option = {
+                            title: {text: data.title},
+                            tooltip: {},
+                            legend: {
+                                data: data.series.map(item => item.name)
+                            },
+                            xAxis: {
+                                data: data.categories
+                            },
+                            yAxis: {},
+                            series: data.series
+                        };
+                        exceeding_rate.setOption(option);
+                    })
+                    .catch(error => {
+                        console.error('加载数据失败:', error);
+                        exceeding_rate.setOption({
+                            title: {text: '数据加载失败'},
+                            xAxis: {},
+                            yAxis: {},
+                            series: []
+                        });
+                    });
+
+                // 窗口大小变化时重绘图表
+                window.addEventListener('resize', function () {
+                    exceeding_rate.resize();
+                });
+            </script>
+            <script>
+                const abnormal_trend = echarts.init(document.getElementById('abnormal_trend'));
+                abnormal_trend.setOption({
+                    title: {
+                        text: ''
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {},
+                    toolbox: {
+                        show: true,
+                        feature: {
+                            dataZoom: {
+                                yAxisIndex: 'none'
+                            },
+                            dataView: {readOnly: false},
+                            magicType: {type: ['line', 'bar']},
+                            restore: {},
+                            saveAsImage: {}
+                        }
+                    },
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                    },
+                    yAxis: {
+                        type: 'value',
+                        axisLabel: {
+                            formatter: '{value} °C'
+                        }
+                    },
+                    series: [
+                        {
+                            name: 'Highest',
+                            type: 'line',
+                            data: [10, 11, 13, 11, 12, 12, 9],
+                            markPoint: {
+                                data: [
+                                    {type: 'max', name: 'Max'},
+                                    {type: 'min', name: 'Min'}
+                                ]
+                            },
+                            markLine: {
+                                data: [{type: 'average', name: 'Avg'}]
+                            }
+                        },
+                        {
+                            name: 'Lowest',
+                            type: 'line',
+                            data: [1, -2, 2, 5, 3, 2, 0],
+                            markPoint: {
+                                data: [{name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}]
+                            },
+                            markLine: {
+                                data: [
+                                    {type: 'average', name: 'Avg'},
+                                    [
+                                        {
+                                            symbol: 'none',
+                                            x: '90%',
+                                            yAxis: 'max'
+                                        },
+                                        {
+                                            symbol: 'circle',
+                                            label: {
+                                                position: 'start',
+                                                formatter: 'Max'
+                                            },
+                                            type: 'max',
+                                            name: '最高点'
+                                        }
+                                    ]
+                                ]
+                            }
+                        }
+                    ]
+                });
+
+                // 窗口大小变化时重绘图表
+                window.addEventListener('resize', function () {
+                    abnormal_trend.resize();
+                });
+            </script>
+        </div>
+        <!--第二行-->
+        <div class="main-line-content">
+            <!--        当前检测进度-->
+            <div class="status-card">
+                <h3 class="status-card-title">当前检测进度</h3>
+                <a class="status-card-title" id="current_testing_progress">等待数据...</a>
+            </div>
+<!--            最近检测进度-->
+            <div class="status-card">
+                <h3 class="status-card-title">最近检测时间</h3>
+                <a class="status-card-title" id="recent_detection_time">等待数据...</a>
+            </div>
+<!--            实时监测状态-->
+            <div class="status-card">
+                <h3 class="status-card-title">实时监测状态</h3>
+                <div class="status-metrics">
+                    <div class="metric">
+                        <div class="metric-value">327</div>
+                        <div class="metric-label">今日检测</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">8</div>
+                        <div class="metric-label">在线设备</div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                fetch('http://localhost:8000/api/get_current_testing_progress')
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('current_testing_progress').innerHTML = `
+                    <h2>${data.value}</h2>
+                    `;
+                    })
+                    .catch(error => {
+                        document.getElementById('current_testing_progress').innerHTML = error;
+                    });
+            </script>
+            <script>
+                fetch('http://localhost:8000/api/get_recent_detection_time')
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('recent_detection_time').innerHTML = `
+                    <h2>${data.message}</h2>
+                    `;
+                    })
+                    .catch(error => {
+                        document.getElementById('recent_detection_time').innerHTML = error;
+                    });
+            </script>
+            <script>
+                fetch('http://127.0.0.1:8000/api/get_all_analysis_sum/')
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('all_analysis_sum').innerHTML = `
+                    <h2>${data.value}</h2>
+                `;
+                    })
+                    .catch(error => {
+                        document.getElementById('all_analysis_sum').textContent = '获取数据失败';
+                    });
+            </script>
+        </div>
+
+        <!--第三行-->
+        <div class="main-line-content">
+            <div class="status-card">
+                <h3 class="status-card-title">近期检测记录</h3>
+                <div class="activity-container">
+                    <div class="activity-timeline">
+                        <!-- 活动记录1 -->
+                        <div class="activity-card">
+                            <div class="activity-date">
+                                <span class="day">15</span>
+                                <span class="month">6月</span>
+                            </div>
+                            <div class="activity-content">
+                                <h3>检测测试1</h3>
+                                <p class="activity-time">14:00 - 15:30</p>
+                                <p class="activity-description">test1</p>
+                                <div class="activity-tag project">项目</div>
+                            </div>
+                        </div>
+
+                        <!-- 活动记录2 -->
+                        <div class="activity-card">
+                            <div class="activity-date">
+                                <span class="day">14</span>
+                                <span class="month">6月</span>
+                            </div>
+                            <div class="activity-content">
+                                <h3>检测测试2</h3>
+                                <p class="activity-time">全天</p>
+                                <p class="activity-description">test2</p>
+                                <div class="activity-tag team">团队</div>
+                            </div>
+                        </div>
+
+                        <!-- 活动记录3 -->
+                        <div class="activity-card">
+                            <div class="activity-date">
+                                <span class="day">12</span>
+                                <span class="month">6月</span>
+                            </div>
+                            <div class="activity-content">
+                                <h3>检测测试3</h3>
+                                <p class="activity-time">10:00 - 12:00</p>
+                                <p class="activity-description">test3</p>
+                                <div class="activity-tag learning">学习</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h3>关于系统</h3>
+                <p>农药残留光谱检测系统是一个基于超表面光谱分析的农产品安全检测工具，通过机器学习算法模型，快速准确地检测农产品中的农药残留情况。</p>
+                <div class="contact">
+                    <p><i class="fas fa-phone"></i> +86 175 125 79193</p>
+                    <p><i class="fas fa-envelope"></i> chenhaonan919@gmail.com</p>
+                </div>
+            </div>
+            <div class="footer-section links">
+                <h3>快速链接</h3>
+                <ul>
+                    <li><a href="dashboard.html">首页</a></li>
+                    <li><a href="analysis.html">检测服务</a></li>
+                    <li><a href="#">光谱数据库</a></li>
+                    <li><a href="#">分析历史</a></li>
+                    <li><a href="#">帮助</a></li>
+                </ul>
+            </div>
+            <div class="footer-section resources">
+                <h3>资源</h3>
+                <ul>
+                    <li><a href="#">用户手册</a></li>
+                    <li><a href="#">API文档</a></li>
+                    <li><a href="#">光谱库下载</a></li>
+                    <li><a href="#">常见问题</a></li>
+                    <li><a href="#">算法说明</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 农药残留光谱检测系统 | 版权所有</p>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
