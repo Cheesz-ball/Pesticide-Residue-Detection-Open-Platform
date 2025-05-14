@@ -2,41 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>农药残留检测开放平台</title>
+    <link href="./css/base.css" rel="stylesheet">
+    <link href="./css/dashboard.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js"></script>
 </head>
 <body>
-<div class="status-bar">123
-    <div class="status-card">
-        <h3>当前检测进度</h3>
-        <div class="progress-bar">
-            <div class="progress" style="width: 75%">75%</div>
+<header class="top-navbar">
+    <div class="logo">
+        <img alt="农药检测" src="./src/image/logo.png">
+        <h1>农药残留开放检测平台</h1>
+    </div>
+    <img alt="校训" src="./src/image/slogan.png" class="slogan">
+    <nav class="top-navbar-links">
+        <a class="top-navbar-links-item" href="dashboard.html">检测仪表盘</a>
+        <a class="top-navbar-links-item" href="analysis.html">分析</a>
+        <a class="top-navbar-links-item" href="./new">数据库</a>
+        <a class="top-navbar-links-item" href="./history">分析历史</a>
+        <a class="top-navbar-links-item" href="./report">帮助</a>
+        <div class="top-navbar-profile">
+            <button class="top-navbar-profile-button">
+                <img alt="list" class="top-navbar-profile-image" src="./src/image/QQ.jpg">
+                <span>Name</span>
+            </button>
+            <div class="top-navbar-profile-dropdown">
+                <a class="top-navbar-profile-dropdown-item" href="./profile/test1">
+                    <img alt="profile" class="top-navbar-profile-dropdown-image" src="./src/image/user.png">test
+                </a>
+                <a class="top-navbar-profile-dropdown-item" href="./profile/test1">
+                    <img alt="profile" class="top-navbar-profile-dropdown-image" src="./src/image/user.png">test
+                </a>
+                <a class="top-navbar-profile-dropdown-item" href="./profile/test1">
+                    <img alt="profile" class="top-navbar-profile-dropdown-image" src="./src/image/user.png">test
+                </a>
+            </div>
         </div>
-        <p>已检测样本：75/100</p>
-    </div>
+    </nav>
+</header>
 
-    <div class="status-card">
-        <h3>超标率统计</h3>
-        <div class="metric red">12.5%</div>
-        <p>超标样本：10/80</p>
-    </div>
 
-    <div id="container" class="status-card">
-        <h3>最近检测时间</h3>
-        <div class="metric">2023-10-25 14:30</div>
-        <p>平均耗时：2.3秒/样本</p>
-    </div>
-    <button id="test">ok</button>
-</div>
 </body>
-<script>
-    var btn = document.getElementById("test");
-    var container = document.getElementById("container");
-    btn.onclick = function () {
-        var h2_test = document.createElement("h2");
-        h2_test.setAttribute("class", "test");
-        h2_test.innerHTML = "test";
-        container.appendChild(h2_test);
-        console.log("test");
-    }
-</script>
+
 </html>

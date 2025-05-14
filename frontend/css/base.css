@@ -49,6 +49,9 @@ body {
     margin-inline: 10px;
 }
 
+.slogan {
+    height: 40px;
+}
 
 /*导航栏链接*/
 .top-navbar-links {
@@ -159,45 +162,3 @@ body {
     color: var(--text-color);
 }
 
-
-/* 主内容区 */
-.main-content {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 30px;
-    gap: 1rem;
-}
-
-.status-card {
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    padding: 20px;
-    flex: 1;
-    justify-content: center;
-    border: 2px solid transparent;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
-.status-card:hover {
-    border-color: #27ae60;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.status-card-title {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    font-weight: bold;
-    text-align: center;
-}
-
-.status-card-title h2 {
-    color: #e67e22;
-    font-weight: bold;
-    text-align: center;
-}
