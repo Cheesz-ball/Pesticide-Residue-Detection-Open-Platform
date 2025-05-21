@@ -8,7 +8,7 @@
     --background-color: rgba(15, 66, 53, 0.4);
 }
 /* 主内容区 */
-.main-content {
+.main-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -58,10 +58,9 @@
 }
 
 .chart-container {
-
-    min-height: 300px;
-    flex: 1;
+    height: 400px;
     min-width: 0;
+    margin-top: 20px;
 }
 
 /*实时监测状态卡*/

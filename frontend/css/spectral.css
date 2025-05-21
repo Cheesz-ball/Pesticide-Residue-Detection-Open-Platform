@@ -1,0 +1,229 @@
+:root {
+    --primary-color: rgb(0, 111, 79);
+    --secondary-color: #ffffff;
+    --gradient-color: rgb(160, 189, 180);
+    --gradient-dropdown-color: rgb(51, 140, 140);
+    --accent-color: #e67e22; /* 强调色-橙色 */
+    --text-color: #ffffff; /* 正文颜色 */
+    --background-color: rgba(15, 66, 53, 0.4);
+}
+/* 搜索区域 */
+.search-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-container label {
+    flex: 0 0 auto;
+    font-weight: bold;
+
+}
+
+.search-container input {
+    flex: 1;
+    min-width: 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.search-container button {
+    flex: 0 0 auto;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+.search-container button:hover {
+    background-color: var(--gradient-dropdown-color);
+}
+
+
+
+
+/*添加区域*/
+
+.tab-content {
+    max-height: 0;
+    background-color: var(--secondary-color);
+    border-radius: 5px;
+}
+
+.add-pesticide {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.add-pesticide-form {
+    display: flex;
+    /*justify-content: space-around;*/
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+.add-pesticide-form label {
+    flex: 0 0 auto;
+    font-weight: bold;
+}
+.add-pesticide-form input {
+    min-width: 0;
+    flex: 1 1 auto;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+}
+#pesticide-upload input{
+    border: 2px dashed var(--primary-color);
+}
+#pesticide-upload input[type='file'] {
+    background-color: var(--gradient-color);
+    color: var(--primary-color);
+    font-weight: bold;
+}
+#pesticide-upload input[type='file']::-webkit-file-upload-button {
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    color: var(--secondary-color);
+}
+
+
+
+.add-pesticide-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 15px;
+}
+.add-pesticide-button button {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.add-pesticide-button button:hover {
+        background-color: var(--gradient-dropdown-color);
+}
+
+
+/*拓展tab*/
+
+.main-tabs {
+    display: flex;
+    padding: 30px;
+    gap: 1rem;
+    flex-direction: column;
+}
+.tab-container {
+    width: 90%;
+    margin: auto;
+    border: 2px solid transparent;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    background-color: var(--secondary-color);
+    transition: 0.3s;
+}
+.tab-container:hover {
+    border-color: var(--gradient-dropdown-color);
+}
+.tab-container >input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+}
+.tab-container {
+    overflow: hidden;
+}
+.tab-label {
+    color: var(--text-color);
+    background-color: var(--primary-color);
+    justify-content: space-between;
+    padding: 20px;
+    display: flex;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+
+.tab-label:hover {
+    background-color: var(--gradient-dropdown-color);
+}
+.tab-label::after {
+    content: "+";
+    width: 10px;
+    height: 10px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+
+.tab-container > input:checked + .tab-label {
+    background-color: var(--primary-color);
+}
+
+.tab-container > input:checked + .tab-label::after {
+    content: "-";
+    width: 10px;
+    height: 10px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.tab-container > input:checked ~.tab-content {
+    max-height: 100vh;
+}
+
+
+
+/* 结果区域 */
+
+
+#results-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+
+
+
+
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #35424a;
+    color: #ffffff;
+    margin-top: 30px;
+}
+
+/*!* 响应式调整 (可选) *!*/
+/*@media (max-width: 768px) {*/
+/*    #search-section {*/
+/*        flex-direction: column;*/
+/*        align-items: stretch;*/
+/*    }*/
+/*    #search-section input[type="text"],*/
+/*    #search-section button {*/
+/*        width: 100%;*/
+/*        margin-top: 10px;*/
+/*    }*/
+/*    #search-section label {*/
+/*        margin-right: 0;*/
+/*        margin-bottom: 5px;*/
+/*    }*/
+/*}*/
