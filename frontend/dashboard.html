@@ -9,7 +9,6 @@
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js"></script>
 </head>
 <body>
-<div>
     <header class="top-navbar">
         <div class="logo">
             <img alt="农药检测" src="./src/image/logo.png">
@@ -19,7 +18,7 @@
         <nav class="top-navbar-links">
             <a class="top-navbar-links-item" href="dashboard.html">检测仪表盘</a>
             <a class="top-navbar-links-item" href="analysis.html">检测服务</a>
-            <a class="top-navbar-links-item" href="./new">数据库</a>
+            <a class="top-navbar-links-item" href="spectral.html">数据库</a>
             <a class="top-navbar-links-item" href="./history">分析历史</a>
             <a class="top-navbar-links-item" href="./report">帮助</a>
             <div class="top-navbar-profile">
@@ -41,7 +40,7 @@
             </div>
         </nav>
     </header>
-    <main class="main-content">
+    <main class="main-container">
         <!--第一行-->
         <div class="main-line-content">
             <!--        农药超标率统计-->
@@ -56,7 +55,7 @@
             </div>
             <script>
                 const exceeding_rate = echarts.init(document.getElementById('exceeding_rate'));
-                fetch('http://127.0.0.1:8000/api/chart-data/')
+                fetch('http://127.0.0.1:8000/dashboard/chart-data/')
                     .then(response => response.json())
                     .then(data => {
                         // 动态生成图表配置
@@ -192,7 +191,7 @@
                 <h3 class="status-card-title">实时监测状态</h3>
                 <div class="status-metrics">
                     <div class="metric">
-                        <div class="metric-value">327</div>
+                        <div class="metric-value" id="all_analysis_sum">327</div>
                         <div class="metric-label">今日检测</div>
                     </div>
                     <div class="metric">
@@ -202,7 +201,7 @@
                 </div>
             </div>
             <script>
-                fetch('http://localhost:8000/api/get_current_testing_progress')
+                fetch('http://localhost:8000/dashboard/get_current_testing_progress')
                     .then(response => response.json())
                     .then(data => {
                         document.getElementById('current_testing_progress').innerHTML = `
@@ -214,7 +213,7 @@
                     });
             </script>
             <script>
-                fetch('http://localhost:8000/api/get_recent_detection_time')
+                fetch('http://localhost:8000/dashboard/get_recent_detection_time')
                     .then(response => response.json())
                     .then(data => {
                         document.getElementById('recent_detection_time').innerHTML = `
@@ -226,15 +225,13 @@
                     });
             </script>
             <script>
-                fetch('http://127.0.0.1:8000/api/get_all_analysis_sum/')
+                fetch('http://127.0.0.1:8000/dashboard/get_all_analysis_sum')
                     .then(response => response.json())
                     .then(data => {
-                        document.getElementById('all_analysis_sum').innerHTML = `
-                    <h2>${data.value}</h2>
-                `;
+                        document.getElementById('all_analysis_sum').innerText = data.value;
                     })
                     .catch(error => {
-                        document.getElementById('all_analysis_sum').textContent = '获取数据失败';
+                        document.getElementById('all_analysis_sum').innerHTML = error;
                     });
             </script>
         </div>
@@ -326,6 +323,5 @@
             <p>&copy; 2025 农药残留光谱检测系统 | 版权所有</p>
         </div>
     </footer>
-</div>
 </body>
 </html>
