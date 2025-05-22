@@ -98,11 +98,15 @@
 
                     resultSection.innerHTML = `
                     <h3>${pesticide.pesticide_name_cn || '未知农药'}</h3>
-                    <p><strong>英文名:</strong> ${pesticide.pesticide_name_en || '无'}</p>
-                    <p><strong>CAS号:</strong> ${pesticide.pesticide_cas || '无'}</p>
-                    <p><strong>分子式:</strong> ${pesticide.pesticide_molecular_formula || '无'}</p>
+                    <div class="results-items">
+                        <p><strong>英文名:</strong> ${pesticide.pesticide_name_en || '无'}</p>
+                        <p><strong>CAS号:</strong> ${pesticide.pesticide_cas || '无'}</p>
+                    </div>
+                    <div class="results-items">
+                        <p><strong>分子式:</strong> ${pesticide.pesticide_molecular_formula || '无'}</p>
+                        ${pesticide.pesticide_remark ? `<p><strong>备注:</strong> ${pesticide.pesticide_remark}</p>` : ''}
+                    </div>
                     <div class="chart-container" id="spectrum_data"></div>
-                    ${pesticide.pesticide_remark ? `<p><strong>备注:</strong> ${pesticide.pesticide_remark}</p>` : ''}
 
             `;
                     const spectrum_data = echarts.init(document.getElementById('spectrum_data'));
@@ -234,7 +238,7 @@
                 <div class="add-pesticide-form">
                     <label for="pesticide_molecular_formula">分子式：</label>
                     <input id="pesticide_molecular_formula" name="pesticide_molecular_formula" placeholder="如：C3H8NO5P" type="text">
-
+                    <label for="pesticide_remark">备注：</label>
                     <input id="pesticide_remark" name="pesticide_remark" placeholder="如：常见的广谱除草剂" type="text">
                 </div>
                 <div class="add-pesticide-form" id="pesticide-upload">

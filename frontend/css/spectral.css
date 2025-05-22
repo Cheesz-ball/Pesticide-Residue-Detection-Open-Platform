@@ -79,7 +79,7 @@
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-size: 1em;
+    /*font-size: 1em;*/
 }
 #pesticide-upload input{
     border: 2px dashed var(--primary-color);
@@ -190,17 +190,17 @@
 
 
 /* 结果区域 */
-
-
 #results-container {
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 10px;
 }
-
-
-
-
+.results-items {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
 
 
 footer {
