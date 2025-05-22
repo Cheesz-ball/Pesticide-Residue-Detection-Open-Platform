@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="PesticideProject" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="PesticideProject" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="/home/ubuntu/miniconda3" project-jdk-type="Python SDK" />
 </project>

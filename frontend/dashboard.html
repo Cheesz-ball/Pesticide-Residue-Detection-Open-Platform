@@ -55,7 +55,7 @@
             </div>
             <script>
                 const exceeding_rate = echarts.init(document.getElementById('exceeding_rate'));
-                fetch('http://127.0.0.1:8000/dashboard/chart-data/')
+                fetch('http://124.222.225.80:8000/dashboard/chart-data/')
                     .then(response => response.json())
                     .then(data => {
                         // 动态生成图表配置
@@ -201,7 +201,7 @@
                 </div>
             </div>
             <script>
-                fetch('http://localhost:8000/dashboard/get_current_testing_progress')
+                fetch('http://124.222.225.80:8000/dashboard/get_current_testing_progress')
                     .then(response => response.json())
                     .then(data => {
                         document.getElementById('current_testing_progress').innerHTML = `
@@ -213,7 +213,7 @@
                     });
             </script>
             <script>
-                fetch('http://localhost:8000/dashboard/get_recent_detection_time')
+                fetch('http://124.222.225.80:8000/dashboard/get_recent_detection_time')
                     .then(response => response.json())
                     .then(data => {
                         document.getElementById('recent_detection_time').innerHTML = `
@@ -225,7 +225,7 @@
                     });
             </script>
             <script>
-                fetch('http://127.0.0.1:8000/dashboard/get_all_analysis_sum')
+                fetch('http://124.222.225.80:8000/dashboard/get_all_analysis_sum')
                     .then(response => response.json())
                     .then(data => {
                         document.getElementById('all_analysis_sum').innerText = data.value;

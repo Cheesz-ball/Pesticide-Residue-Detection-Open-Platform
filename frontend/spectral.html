@@ -69,7 +69,7 @@
 
                 try {
                     // 构造API URL
-                    const apiUrl = new URL('http://127.0.0.1:8000/api/spectral_data/spectral');
+                    const apiUrl = new URL('http://124.222.225.80:8000/api/spectral_data/spectral');
                     apiUrl.searchParams.append('action', 'search_pesticide');
                     apiUrl.searchParams.append('query', searchValue);
 
@@ -267,7 +267,7 @@
                     if (spectrumFile) {
                         formData.append('pesticide_thz_spectrum', spectrumFile);
                     }
-                    const apiUrl = new URL('http://127.0.0.1:8000/api/spectral_data/spectral');
+                    const apiUrl = new URL('http://124.222.225.80:8000/api/spectral_data/spectral');
                     try {
                         const response = await fetch(apiUrl, {
                             method: 'POST',
