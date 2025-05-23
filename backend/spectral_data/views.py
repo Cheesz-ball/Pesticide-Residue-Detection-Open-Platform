@@ -10,6 +10,7 @@ def search_pesticide(request):
 	query = request.GET.get('query', '').strip()
 	data = Spectrum.objects.filter(pesticide_name_cn=query)
 	serialized_data = serializers.serialize('python', data)
+	print(serialized_data)
 	return JsonResponse({"ret":0, "data":serialized_data})
 
 
@@ -37,6 +38,32 @@ def add_pesticide(request):
 	)
 	return JsonResponse({"ret": 0, "id": record.id})
 
+def modify_pesticide(request):
+	current_pesticide_id = request.POST.get('id')
+	print(current_pesticide_id)
+	record = Spectrum.objects.get(pk=current_pesticide_id)
+	if 'pesticide_name_cn' in request.POST:
+		record.pesticide_name_cn = request.POST.get('pesticide_name_cn')
+	if 'pesticide_name_en' in request.POST:
+		record.pesticide_name_en = request.POST.get('pesticide_name_en')
+	if 'pesticide_cas' in request.POST:
+		record.pesticide_cas = request.POST.get('pesticide_cas')
+	if 'pesticide_molecular_formula' in request.POST:
+		record.pesticide_molecular_formula = request.POST.get('pesticide_molecular_formula')
+	if 'pesticide_remark' in request.POST:
+		record.pesticide_remark = request.POST.get('pesticide_remark')
+	if 'pesticide_thz_spectrum' in request.FILES:
+		spectrum_file = request.FILES.get('pesticide_thz_spectrum')
+		spectrum_data = pd.read_excel(spectrum_file)
+		if len(spectrum_data.columns) < 2:
+			return JsonResponse({'error': 'Excel必须包含至少两列数据'}, status=400)
+
+		record.pesticide_frequency = spectrum_data.iloc[:, 0].to_json()
+		record.pesticide_absorption = spectrum_data.iloc[:, 1].to_json()
+
+	record.save()
+
+	return JsonResponse({"ret": 0, "id": record.id})
 
 def dispatcher(request):
 	if request.method == 'GET':
@@ -56,5 +83,7 @@ def dispatcher(request):
 		return search_pesticide(request)
 	elif action == 'add_pesticide':
 		return add_pesticide(request)
+	elif action == 'modify_pesticide':
+		return modify_pesticide(request)
 	else:
 		return JsonResponse({'ret': 1, 'msg': '不支持的操作类型'})
