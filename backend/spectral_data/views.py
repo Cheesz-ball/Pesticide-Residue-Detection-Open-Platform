@@ -23,9 +23,12 @@ def add_pesticide(request):
 	pesticide_remark = request.POST.get('pesticide_remark')
 	# 处理上传的文件
 	spectrum_file = request.FILES.get('pesticide_thz_spectrum')
-	spectrum_data = pd.read_excel(spectrum_file)
-	if len(spectrum_data.columns) < 2:
-		return JsonResponse({'error': 'Excel必须包含至少两列数据'}, status=400)
+	if spectrum_file is not None:
+		spectrum_data = pd.read_excel(spectrum_file)
+		if len(spectrum_data.columns) < 2:
+			return JsonResponse({'error': 'Excel必须包含至少两列数据'}, status=400)
+	else:
+		spectrum_data = pd.DataFrame(columns=['f', 'a'])
 	# 创建记录
 	record = Spectrum.objects.create(
 		pesticide_name_cn=pesticide_name_cn,
@@ -40,7 +43,6 @@ def add_pesticide(request):
 
 def modify_pesticide(request):
 	current_pesticide_id = request.POST.get('id')
-	print(current_pesticide_id)
 	record = Spectrum.objects.get(pk=current_pesticide_id)
 	if 'pesticide_name_cn' in request.POST:
 		record.pesticide_name_cn = request.POST.get('pesticide_name_cn')
@@ -65,10 +67,17 @@ def modify_pesticide(request):
 
 	return JsonResponse({"ret": 0, "id": record.id})
 
+def delete_pesticide(request):
+	current_pesticide_id = request.POST.get('id')
+	record = Spectrum.objects.get(pk=current_pesticide_id)
+	delete_id = request.POST.get('id')
+	record.delete()
+	return JsonResponse({"ret": 0, "id": delete_id})
+
 def dispatcher(request):
 	if request.method == 'GET':
 		request.params = request.GET
-	elif request.method in ['POST', 'PUT', 'DELETE']:
+	elif request.method in ['POST']:
 		# 判断是否为文件上传（multipart/form-data）
 		if request.content_type.startswith('multipart/form-data'):
 			request.params = request.POST  # 普通字段
@@ -85,5 +94,7 @@ def dispatcher(request):
 		return add_pesticide(request)
 	elif action == 'modify_pesticide':
 		return modify_pesticide(request)
+	elif action == 'delete_pesticide':
+		return delete_pesticide(request)
 	else:
 		return JsonResponse({'ret': 1, 'msg': '不支持的操作类型'})

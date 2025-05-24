@@ -192,10 +192,13 @@
 
 /* 结果区域 */
 #results-container {
-    padding: 20px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+#initial-prompt {
+    min-width: 0;
 }
 #results-container h2 {
     color: var(--primary-color);
@@ -205,6 +208,18 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    gap: 15px;
+}
+
+
+.results-subitems {
+    font-weight: bold;
+    font-size: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 15px;
 }
 #results-container button {
     min-width: 100px;
@@ -247,6 +262,14 @@
     border: 1px solid #ddd;
     border-radius: 4px;
 }
+#edit-spectrum-form #delete-sp {
+    background-color: #8b0606;
+}
+
+#edit-spectrum-form #delete-sp:hover {
+    background-color: #a60a0a;
+}
+
 
 #pesticide-modify-upload  input{
     border: 2px dashed var(--primary-color);
@@ -260,6 +283,10 @@
     background-color: var(--primary-color);
     border-radius: 5px;
     color: var(--secondary-color);
+}
+
+#modify-button-container {
+    flex-direction: row;
 }
 
 
