@@ -2,7 +2,7 @@
     --primary-color: rgb(0, 111, 79);
     --secondary-color: #ffffff;
     --gradient-color: rgb(160, 189, 180);
-    --gradient-dropdown-color: rgb(51, 140, 140);
+    --gradient-dropdown-color: #73946B;
     --accent-color: #e67e22; /* 强调色-橙色 */
     --text-color: #ffffff; /* 正文颜色 */
     --background-color: rgba(15, 66, 53, 0.4);
@@ -108,7 +108,6 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    /*font-weight: bold;*/
 }
 
 .file-list {
@@ -133,8 +132,17 @@
     gap: 15px;
     margin-top: 15px;
 }
+.file-name {
+    flex: 2;
+    text-align: center;
+}
+.file-size {
+    flex: 2;
+    text-align: center;
+}
 
 .remove-file {
+    flex: 1 0 auto;
     padding: 5px;
     color: var(--text-color);
     background-color: var(--primary-color);

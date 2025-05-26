@@ -1,6 +1,6 @@
 class PesticideAnalysis {
     constructor(config) {
-        this.apiBase = config.apiBase || 'http://124.222.225.80:8000/api/spectral_data/spectral';
+        this.apiBase = config.apiBase || 'http://124.222.225.80:8000/api/analysis/upload';
         this.uploadArea = document.getElementById('upload-area');
         this.spectrumFile = document.getElementById('spectrum-file');
         this.selectDataButton = document.getElementById('select-upload-btn');
@@ -8,6 +8,7 @@ class PesticideAnalysis {
         this.filesUploadInfo = document.getElementById('files-upload-info');
         this.confirmUploadButton = document.getElementById('confirm-upload');
         this.clearUploadButton = document.getElementById('clear-upload');
+        this.currentAnaylsisId = null;
         this.selectedFiles = [];
         this.init();
     }
@@ -96,6 +97,7 @@ class PesticideAnalysis {
                 fileInfo.className = 'file-info-item';
 
                 const fileName = document.createElement("span");
+                fileName.className = 'file-name';
                 fileName.textContent = file.name;
 
                 const fileSize = document.createElement('span');
@@ -167,6 +169,5 @@ class PesticideAnalysis {
 }
 
 const test = new PesticideAnalysis({
-    apiBase: 'http://124.222.225.80:8000/api/spectral_data/spectral',
 });
 // test.init();
