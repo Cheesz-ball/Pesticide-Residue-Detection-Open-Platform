@@ -31,8 +31,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Application definition
 
 INSTALLED_APPS = [
+    'analysis.apps.AnalysisConfig',
     'spectral_data.apps.SpectralDataConfig',
-    'common.apps.CommonConfig',
     'dashboard',
     'corsheaders',
     'django.contrib.admin',

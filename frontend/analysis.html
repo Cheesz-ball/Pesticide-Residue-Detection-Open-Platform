@@ -8,6 +8,7 @@
     <link href="./css/dashboard.css" rel="stylesheet">
     <link href="./css/analysis.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js"></script>
+    <script src="js/analysis.js" defer></script>
 </head>
 <body>
 <header class="top-navbar">
@@ -47,20 +48,20 @@
         <section id="upload-section" class="section">
             <h2><i class="fas fa-upload"></i> 上传光谱数据</h2>
             <div class="upload-container">
-                <div class="upload-area">
+                <form class="upload-area" id="upload-area">
                     <p>拖拽文件到此处或点击上传</p>
-                    <p class="file-types">支持的文件格式: .csv, .xlsx</p>
-                    <input type="file" id="spectrum-file" accept=".csv,.txt,.xlsx,.dat" multiple>
-                    <button class="upload-btn">选择文件</button>
-                </div>
+                    <p class="file-types">支持的文件格式: .xlsx</p>
+                    <input accept=".xlsx" id="spectrum-file"  type="file">
+                    <button class="select-upload-btn" id="select-upload-btn" type="button">选择文件</button>
+                </form>
                 <div class="file-info">
                     <h3>已选择文件</h3>
-                    <ul class="file-list">
-                        <li class="no-files">暂无上传文件</li>
+                    <ul class="file-list" id="file-list">
+                        <li class="no-files" id="files-upload-info">暂无上传文件</li>
                     </ul>
                     <div class="upload-actions">
-                        <button class="action-btn" disabled><i class="fas fa-trash-alt"></i> 清除所有</button>
-                        <button class="action-btn primary-btn" disabled><i class="fas fa-check"></i> 确认上传</button>
+                        <button class="action-btn" id="clear-upload" disabled><i class="fas fa-trash-alt"></i> 清除所有</button>
+                        <button class="action-btn primary-btn" id="confirm-upload" disabled><i class="fas fa-check"></i> 确认上传</button>
                     </div>
                 </div>
             </div>
