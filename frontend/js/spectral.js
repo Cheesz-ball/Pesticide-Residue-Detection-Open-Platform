@@ -2,6 +2,7 @@ const searchButton = document.getElementById('search-button');
 const searchInput = document.getElementById('pesticide-search');
 const resultSection = document.getElementById('results-container');
 let currentPesticideId = null;
+const apiUrl = new URL('http://124.222.225.80:8000/api/spectral_data/spectral');
 
 searchButton.addEventListener('click', async () => {
     const searchValue = searchInput.value.trim();
@@ -14,7 +15,6 @@ searchButton.addEventListener('click', async () => {
 
     try {
         // 构造API URL
-        const apiUrl = new URL('http://124.222.225.80:8000/api/spectral_data/spectral');
         apiUrl.searchParams.append('action', 'search_pesticide');
         apiUrl.searchParams.append('query', searchValue);
 
@@ -35,7 +35,7 @@ searchButton.addEventListener('click', async () => {
 
         // 验证数据格式
         if (!data?.data?.[0]?.fields) {
-            throw new Error('无效的数据格式');
+            throw new Error('不存在该数据');
         }
         currentPesticideId = data.data[0].pk;
         const pesticide = data.data[0].fields;
@@ -43,17 +43,26 @@ searchButton.addEventListener('click', async () => {
         resultSection.innerHTML = `
                     <h2>${pesticide.pesticide_name_cn || '未知农药'}</h2>
                     <div class="results-items">
-                        <p><strong>英文名:</strong> ${pesticide.pesticide_name_en || '无'}</p>
-                        <p><strong>CAS号:</strong> ${pesticide.pesticide_cas || '无'}</p>
-                    </div>
-                    <div class="results-items">
-                        <p><strong>分子式:</strong> ${pesticide.pesticide_molecular_formula || '无'}</p>
-                        ${pesticide.pesticide_remark ? `<p><strong>备注:</strong> ${pesticide.pesticide_remark}</p>` : ''}
+                        <div class="results-subitems">
+                            <label>英文名:</label>
+                            <label>CAS号:</label>
+                        </div>
+                        <div class="results-subitems">
+                            <p>${pesticide.pesticide_name_en || '无'}</p>
+                            <p>${pesticide.pesticide_cas || '无'}</p>
+                        </div>
+                        <div class="results-subitems">
+                            <label>分子式:</label>
+                            <label>备注:</label>
+                        </div>
+                        <div class="results-subitems">
+                            <p>${pesticide.pesticide_molecular_formula || '无'}</p>
+                            ${pesticide.pesticide_remark ? `<p> ${pesticide.pesticide_remark || '无'}</p>` : ''}
+                        </div>
                     </div>
                     <div class="chart-container" id="spectrum_data"></div>
-                    <div class="results-items">
-                        <button id="modify-sp">修改</button>
-                        <button id="delete-sp">删除</button>
+                    <div class="results-subitems">
+                        <button id="modify-sp">修改/重新上传数据</button>
                     </div>
             `;
         document.getElementById('modify-sp').addEventListener('click', function() {
@@ -176,33 +185,46 @@ function editSpectrumForm(pesticide) {
    <h2>${pesticide.pesticide_name_cn || '未知农药'}</h2> 
     <form id="edit-spectrum-form">
         <div class="results-items">
-            <p><strong>英文名:</strong><input name="pesticide_name_en" value="${pesticide.pesticide_name_en || '无'}" type="text"> </p>
-            <p><strong>CAS号:</strong><input name="pesticide_cas" value="${pesticide.pesticide_cas || '无'}" type="text"></p>
-        </div>
-            <div class="results-items">
-            <p><strong>分子式:</strong><input name="pesticide_molecular_formula" value="${pesticide.pesticide_molecular_formula || '无'}" type="text"></p>
-            <p><strong>备注:</strong><input name="pesticide_remark" value="${pesticide.pesticide_remark}" type="text"></p>
+            <div class="results-subitems"
+                <label>英文名:</label>
+                <label>CAS号:</label>
+            </div>
+            <div class="results-subitems"
+                <p><input name="pesticide_name_en" value="${pesticide.pesticide_name_en || '无'}" type="text"> </p>
+                <p><input name="pesticide_cas" value="${pesticide.pesticide_cas || '无'}" type="text"></p>
+            </div>
+            <div class="results-subitems">
+                <label>分子式:</label>
+                <label>备注:</label>
+            </div>
+            <div class="results-subitems">
+                <p><input name="pesticide_molecular_formula" value="${pesticide.pesticide_molecular_formula || '无'}" type="text"></p>
+                <p><input name="pesticide_remark" value="${pesticide.pesticide_remark || '无'}" type="text"></p>
+            </div>
         </div>
         <div class="add-pesticide-form" id="pesticide-modify-upload">
             <label for="pesticide_thz_spectrum">THz光谱文件：</label>
             <input accept=".xlsx" id="pesticide_thz_spectrum" name="pesticide_thz_spectrum" type="file">
         </div>
-        <div class="results-items">
+        <div class="results-subitems" id="modify-button-container">
             <button id="modify-sp" type="submit">提交修改</button>
             <button type="reset">重置</button> 
             <button id="delete-sp">删除</button>
         </div> 
+        
     </form>
    `
     document.getElementById('edit-spectrum-form').addEventListener('submit', function (e) {
         e.preventDefault();
         submitModifyForm(e);
     })
+    document.getElementById('delete-sp').addEventListener('click', function (e) {
+        e.preventDefault();
+        deleteSpectrum();
+    })
 }
 
 async function submitModifyForm(event) {
-    console.log('test')
-
     const form = event.target; // 获取表单元素
     const modifyData = new FormData(form);
     modifyData.append('action', 'modify_pesticide');
@@ -212,7 +234,6 @@ async function submitModifyForm(event) {
     if (spectrumFile) {
         modifyData.append('pesticide_thz_spectrum', spectrumFile);
     }
-    const apiUrl = new URL('http://124.222.225.80:8000/api/spectral_data/spectral');
     try {
         const response = await fetch(apiUrl, {
             method: 'POST',
@@ -224,6 +245,26 @@ async function submitModifyForm(event) {
             alert(`上传成功！记录ID: ${result.id}`);
         } else {
             alert(`上传失败: ${result.ret || '未知错误'}`);
+        }
+    } catch (error) {
+        alert(`网络错误: ${error.message}`);
+    }
+}
+async function deleteSpectrum() {
+    const deleteData = new FormData;
+    deleteData.append('action', 'delete_pesticide');
+    deleteData.append('id',currentPesticideId);
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            body: deleteData
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            alert(`删除成功！记录ID: ${result.id}`);
+        } else {
+            alert(`删除失败: ${result.ret || '未知错误'}`);
         }
     } catch (error) {
         alert(`网络错误: ${error.message}`);
@@ -246,7 +287,6 @@ document.getElementById('pesticideForm').addEventListener('submit', async (e) =>
     if (spectrumFile) {
         formData.append('pesticide_thz_spectrum', spectrumFile);
     }
-    const apiUrl = new URL('http://124.222.225.80:8000/api/spectral_data/spectral');
     try {
         const response = await fetch(apiUrl, {
             method: 'POST',
