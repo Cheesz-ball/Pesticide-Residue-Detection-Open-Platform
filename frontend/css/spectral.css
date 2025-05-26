@@ -2,7 +2,7 @@
     --primary-color: rgb(0, 111, 79);
     --secondary-color: #ffffff;
     --gradient-color: rgb(160, 189, 180);
-    --gradient-dropdown-color: rgb(51, 140, 140);
+    --gradient-dropdown-color: #73946B;
     --accent-color: #e67e22; /* 强调色-橙色 */
     --text-color: #ffffff; /* 正文颜色 */
     --background-color: rgba(15, 66, 53, 0.4);
@@ -30,6 +30,7 @@
     border-radius: 4px;
 }
 .search-container button {
+
     flex: 0 0 auto;
     padding: 10px 20px;
     background-color: var(--primary-color);
@@ -191,6 +192,7 @@
 
 
 /* 结果区域 */
+
 #results-container {
     padding: 10px;
     display: flex;
@@ -199,6 +201,8 @@
 }
 #initial-prompt {
     min-width: 0;
+    font-weight: bold;
+    color: var(--accent-color);
 }
 #results-container h2 {
     color: var(--primary-color);
