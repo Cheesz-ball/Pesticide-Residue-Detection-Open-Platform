@@ -31,7 +31,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Application definition
 
 INSTALLED_APPS = [
-    'analysis.apps.AnalysisConfig',
+    'analysis',
     'spectral_data.apps.SpectralDataConfig',
     'dashboard',
     'corsheaders',

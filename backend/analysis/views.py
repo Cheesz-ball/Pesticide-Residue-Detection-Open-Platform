@@ -25,7 +25,7 @@ def dispatcher(request):
 				return JsonResponse({'ret': 1, 'msg': '无效的JSON数据'})
 	print(request.POST)
 	action = request.params.get('action')
-	if action == 'search_pesticide':
+	if action == 'upload_spectrum':
 		return read_spectrum(request)
 
 	else:
