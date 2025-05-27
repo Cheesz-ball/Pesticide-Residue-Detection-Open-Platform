@@ -72,9 +72,8 @@
             <h2><i class="fas fa-chart-line"></i> 数据预览</h2>
             <div class="preview-container">
                 <div class="preview-controls">
-                    <button class="control-btn active">原始数据</button>
-                    <button class="control-btn">预处理数据</button>
-                    <button class="control-btn">光谱图表</button>
+                    <button class="control-btn active" id="render-origin">原始数据</button>
+                    <button class="control-btn" id="render-processed">预处理数据</button>
                 </div>
                 <div class="data-display">
                     <div class="chart-container" id="upload_data"></div>
@@ -90,9 +89,9 @@
                     <h3>基本参数设置</h3>
                     <form id="detection-form">
                         <div class="form-group">
-                            <label for="sample-type">样品类型</label>
+                            <label for="sample-type">样品附着类型</label>
                             <select id="sample-type">
-                                <option value="">请选择样品类型</option>
+                                <option value="">请选择样品附着类型</option>
                                 <option value="fruit">水果</option>
                                 <option value="vegetable">蔬菜</option>
                                 <option value="grain">谷物</option>
@@ -117,7 +116,7 @@
                                 <option value="method1">PLS-DA</option>
                                 <option value="method2">SVM</option>
                                 <option value="method3">随机森林</option>
-                                <option value="method4">深度学习</option>
+                                <option value="method4">自定义模型</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -128,7 +127,7 @@
                 </div>
                 <div class="advanced-settings">
                     <h3>高级参数设置</h3>
-                    <div class="form-group">
+                    <form class="form-group">
                         <label>数据预处理方法</label>
                         <div class="checkbox-group">
                             <label><input type="checkbox" name="preprocess" value="smooth"> 平滑处理</label>
@@ -136,17 +135,13 @@
                             <label><input type="checkbox" name="preprocess" value="baseline"> 基线校正</label>
                             <label><input type="checkbox" name="preprocess" value="derivative"> 导数变换</label>
                         </div>
-                    </div>
+                    </form>
                     <div class="form-group">
-                        <label for="reference-library">参考光谱库</label>
+                        <label for="reference-library">参考光谱库权重</label>
                         <select id="reference-library">
-                            <option value="default">默认光谱库</option>
-                            <option value="custom">自定义光谱库</option>
-                            <option value="international">国际标准光谱库</option>
+                            <option value="default">默认光谱库权重</option>
+                            <option value="custom">自定义光谱库权重</option>
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <button class="model-params-btn"><i class="fas fa-sliders-h"></i> 模型参数详细设置</button>
                     </div>
                 </div>
                 <div class="detection-actions">

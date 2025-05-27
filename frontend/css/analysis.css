@@ -6,6 +6,9 @@
     --accent-color: #e67e22; /* 强调色-橙色 */
     --text-color: #ffffff; /* 正文颜色 */
     --background-color: rgba(15, 66, 53, 0.4);
+    --border-color: rgba(149, 154, 149, 0.56);
+    --error-color: #8b0606;
+    --error-color-hover: #a42e2e;
 }
 .section {
     background-color: white;
@@ -44,7 +47,7 @@
     align-items: center;
     flex: 1;
     min-width: 300px;
-    border: 2px dashed #ddd;
+    border: 2px dashed var(--border-color);
     border-radius: 8px;
     padding: 40px 20px;
     text-align: center;
@@ -104,6 +107,9 @@
 }
 
 .file-info-item {
+    padding: 5px;
+    border: 1px dashed var(--border-color);
+    border-radius: 5px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -145,16 +151,16 @@
     flex: 1 0 auto;
     padding: 5px;
     color: var(--text-color);
-    background-color: var(--primary-color);
+    background-color: var(--error-color);
     align-items: center;
-    border: 1px solid var(--primary-color);
+    border: 1px solid var(--error-color-hover);
     border-radius: 4px;
     transition: all 0.3s ease;
 }
 
 .remove-file:hover {
-    background: var(--accent-color);
-    border: 1px dashed var(--accent-color);
+    background: var(--error-color-hover);
+    border: 1px dashed var(--error-color);
 }
 
 .action-btn {
@@ -213,9 +219,10 @@
 }
 
 .data-display {
+    padding: 10px;
     display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
+    flex-direction: column;
+    gap: 10px;
 }
 
 

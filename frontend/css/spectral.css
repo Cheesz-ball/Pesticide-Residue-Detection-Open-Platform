@@ -6,6 +6,8 @@
     --accent-color: #e67e22; /* 强调色-橙色 */
     --text-color: #ffffff; /* 正文颜色 */
     --background-color: rgba(15, 66, 53, 0.4);
+    --error-color: #8b0606;
+    --error-color-hover: #a60a0a;
 }
 /* 搜索区域 */
 .search-container {
@@ -248,7 +250,7 @@
 }
 .error-message p {
     font-weight: bold;
-    color: var(--accent-color);
+    color: var(--error-color);
 }
 
 
@@ -267,11 +269,11 @@
     border-radius: 4px;
 }
 #edit-spectrum-form #delete-sp {
-    background-color: #8b0606;
+    background-color: var(--error-color);
 }
 
 #edit-spectrum-form #delete-sp:hover {
-    background-color: #a60a0a;
+    background-color: var(--error-color-hover);
 }
 
 

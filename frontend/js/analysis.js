@@ -8,6 +8,11 @@ class PesticideAnalysis {
         this.filesUploadInfo = document.getElementById('files-upload-info');
         this.confirmUploadButton = document.getElementById('confirm-upload');
         this.clearUploadButton = document.getElementById('clear-upload');
+
+        this.renderOriginButton = document.getElementById('render-origin');
+        this.renderProcessedButton = document.getElementById('render-processed');
+        this.echarts = window.echarts;
+        this.chartContainer = document.getElementById('upload_data');
         this.currentAnaylsisId = null;
         this.selectedFiles = [];
         this.init();
@@ -64,6 +69,20 @@ class PesticideAnalysis {
                 this.upload();
             }
         });
+
+        //渲染原始数据
+        this.renderOriginButton.addEventListener('click', () => {
+            this.renderUploadResult();
+            this.renderProcessedButton.classList.remove('active');
+            this.renderOriginButton.classList.add('active');
+        })
+
+        //渲染预处理数据
+        this.renderProcessedButton.addEventListener('click', () => {
+            this.renderUploadResult('processed');
+            this.renderProcessedButton.classList.add('active');
+            this.renderOriginButton.classList.remove('active');
+        })
     }
 
     handleFiles(files) {
@@ -151,10 +170,10 @@ class PesticideAnalysis {
                     body: formData
                 });
 
-                const result = await response.json();
+                this.uploadResult = await response.json();
 
                 if (!response.ok) {
-                    throw new Error(result.message || '上传失败');
+                    throw new Error(this.uploadResult.message || '上传失败');
                 }
             }
 
@@ -162,12 +181,124 @@ class PesticideAnalysis {
             this.selectedFiles = [];
             this.updateFileList();
             this.spectrumFile.value = '';
+            this.currentAnaylsisId = this.uploadResult.id;
+            this.uploadData = this.uploadResult.data;
+            this.renderUploadResult();
         } catch (error) {
             alert(`上传出错: ${error.message}`);
         }
+    }
+
+    renderUploadResult(option) {
+        const frequency = this.uploadData.frequency;
+        const transmission = this.uploadData.transmission;
+        const smoothed = this.uploadData.smoothed;
+        const standardized = this.uploadData.standardized;
+        const derivative = this.uploadData.derivative;
+
+        const dataChart = this.echarts.init(this.chartContainer);
+        dataChart.clear();
+
+        const series = [];
+        const legendData = [];
+
+        series.push({
+            name: '原始数据',
+            type: 'line',
+            itemStyle: { color: 'rgb(51, 140, 140)' },
+            areaStyle: { color: 'rgba(54,147,81,0.3)' },
+            lineStyle: { color: 'rgb(0, 111, 79)', width: 1 },
+            emphasis: { focus: 'series', itemStyle: { color: 'rgb(0, 111, 79)' } },
+            data: transmission,
+        });
+        legendData.push('原始数据');
+
+        if (option === 'processed') {
+            series.push({
+                name: '平滑处理',
+                type: 'line',
+                itemStyle: { color: 'rgb(255, 127, 14)' },
+                lineStyle: { color: 'rgb(255, 127, 14)', width: 2 },
+                emphasis: { focus: 'series' },
+                data: smoothed,
+            });
+            legendData.push('平滑处理');
+
+            series.push({
+                name: '标准化',
+                type: 'line',
+                itemStyle: { color: 'rgb(214, 39, 40)' },
+                lineStyle: { color: 'rgb(214, 39, 40)', width: 2 },
+                emphasis: { focus: 'series' },
+                data: standardized,
+            });
+            legendData.push('标准化');
+
+            series.push({
+                name: '导数',
+                type: 'line',
+                itemStyle: { color: 'rgb(148, 103, 189)' },
+                lineStyle: { color: 'rgb(148, 103, 189)', width: 2 },
+                emphasis: { focus: 'series' },
+                data: derivative,
+            });
+            legendData.push('导数');
+        }
+
+        dataChart.setOption({
+            title: { text: '数据预览', left: 'center' },
+            backgroundColor: '#fff',
+            grid: { bottom: 80 },
+            toolbox: {
+                feature: {
+                    dataZoom: { yAxisIndex: 'none' },
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    animation: false,
+                    label: { backgroundColor: '#fff' }
+                }
+            },
+            legend: {
+                data: legendData,
+                left: 10
+            },
+            dataZoom: [
+                {
+                    show: true,
+                    realtime: true,
+                    start: 0,
+                    end: 100,
+                    backgroundColor: 'rgba(54,147,81,0.2)',
+                    fillerColor: 'rgba(54,147,81,0.7)',
+                    dataBackground: {
+                        areaStyle: { color: 'rgba(54,147,81,1)' }
+                    },
+                    selectedDataBackground: '#379351',
+                    moveHandleStyle: { color: '#379351' },
+                    emphasis: { moveHandleStyle: { color: '#379351' } }
+                },
+                { type: 'inside', realtime: true }
+            ],
+            xAxis: [{
+                name: '频率/THz',
+                type: 'category',
+                boundaryGap: false,
+                data: frequency
+            }],
+            yAxis: [{ name: 'Transmission', type: 'value' }],
+            series: series
+        });
+
+        window.addEventListener('resize', () => dataChart.resize());
     }
 }
 
 const test = new PesticideAnalysis({
 });
-// test.init();
+
