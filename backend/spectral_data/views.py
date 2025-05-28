@@ -10,7 +10,6 @@ def search_pesticide(request):
 	query = request.GET.get('query', '').strip()
 	data = Spectrum.objects.filter(pesticide_name_cn=query)
 	serialized_data = serializers.serialize('python', data)
-	print(serialized_data)
 	return JsonResponse({"ret":0, "data":serialized_data})
 
 
