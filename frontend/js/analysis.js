@@ -15,6 +15,9 @@ class PesticideAnalysis {
         this.chartContainer = document.getElementById('upload_data');
         this.currentAnaylsisId = null;
         this.selectedFiles = [];
+
+        this.settingForm = document.getElementById('detection-form');
+        this.startAnalysis = document.getElementById('start-analysis');
         this.init();
     }
 
@@ -82,6 +85,12 @@ class PesticideAnalysis {
             this.renderUploadResult('processed');
             this.renderProcessedButton.classList.add('active');
             this.renderOriginButton.classList.remove('active');
+        })
+
+        //分析设置
+        this.settingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.uploadSetting(e);
         })
     }
 
@@ -296,6 +305,35 @@ class PesticideAnalysis {
         });
 
         window.addEventListener('resize', () => dataChart.resize());
+    }
+    async uploadSetting(event) {
+        if (this.currentAnaylsisId === null) {
+            alert('请先上传文件');
+            return;
+        }
+
+        try {
+            const form = event.target;
+            const formData = new FormData(form);
+            formData.append('action', 'upload_setting');
+            formData.append('analysis-id', this.currentAnaylsisId);
+
+            const response = await fetch(this.apiBase, {
+                method: 'POST',
+                body: formData
+            });
+
+            this.analysisResult = await response.json();
+
+            if (!response.ok) {
+                throw new Error(this.analysisResult.message || '上传失败');
+            }
+
+            alert('设置成功，开始分析！');
+
+        } catch (error) {
+            alert(`上传出错: ${error.message}`);
+        }
     }
 }
 
