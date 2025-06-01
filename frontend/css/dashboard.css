@@ -2,7 +2,7 @@
     --primary-color: rgb(0, 111, 79);
     --secondary-color: #ffffff;
     --gradient-color: rgb(160, 189, 180);
-    --gradient-dropdown-color: rgb(51, 140, 140);
+    --gradient-dropdown-color: rgb(115, 148, 107);
     --accent-color: #e67e22; /* 强调色-橙色 */
     --text-color: #ffffff; /* 正文颜色 */
     --background-color: rgba(15, 66, 53, 0.4);
@@ -47,6 +47,7 @@
 }
 
 .status-card-title {
+    padding-bottom: 10px;
     font-weight: bold;
     text-align: center;
 }
@@ -137,6 +138,7 @@
 
 /* 活动卡片样式 */
 .activity-card {
+    width: 100%;
     position: relative;
     margin-bottom: 30px;
     background: #fff;
@@ -159,14 +161,14 @@
     flex-shrink: 0;
 }
 
-.activity-date .day {
+.activity-date .month {
     display: block;
     font-size: 24px;
     font-weight: bold;
     color: var(--primary-color);
 }
 
-.activity-date .month {
+.activity-date .day {
     display: block;
     font-size: 14px;
     color: #95a5a6;
@@ -192,6 +194,7 @@
 .activity-description {
     color: #555;
     margin-bottom: 15px;
+    font-weight: bold;
 }
 
 /* 标签样式 */
@@ -202,20 +205,20 @@
     font-size: 12px;
     font-weight: bold;
     text-transform: uppercase;
-    color: white;
 }
 
-.activity-tag.project {
-    background-color: #3498db;
+.activity-tag.positive {
+    background-color: #951b1b;
+    color: var(--text-color);
 }
 
-.activity-tag.team {
+.activity-tag.negative {
     background-color: #2ecc71;
+    color: var(--text-color);
 }
 
-.activity-tag.learning {
-    background-color: #9b59b6;
-}
+
+
 
 /* 响应式设计 */
 @media (max-width: 1200px) {

@@ -2,7 +2,7 @@
     --primary-color: rgb(0, 111, 79);
     --secondary-color: #ffffff;
     --gradient-color: rgb(160, 189, 180);
-    --gradient-dropdown-color: rgb(51, 140, 140);
+    --gradient-dropdown-color: rgb(115, 148, 107);
     --accent-color: #e67e22; /* 强调色-橙色 */
     --text-color: #ffffff; /* 正文颜色 */
     --background-color: rgba(15, 66, 53, 0.4);
@@ -172,13 +172,11 @@ footer {
 }
 
 .footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
+    margin: 0 100px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    flex-direction: row;
+    justify-content: space-around;
     gap: 40px;
-    padding: 0 20px;
 }
 
 .footer-section {
@@ -186,9 +184,13 @@ footer {
     min-width: 250px;
 }
 
+.footer-section img {
+    height: 50px;
+}
+
 .footer-section h3 {
     color: white;
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
     padding-bottom: 10px;
     border-bottom: 1px solid var(--primary-color);
 }
@@ -207,11 +209,13 @@ footer {
 
 .footer-section ul li {
     margin-bottom: 10px;
+    list-style: none;
 }
 
 .footer-section ul li a {
     color: #ccc;
     transition: color 0.3s;
+    text-decoration: none;
 }
 
 .footer-section ul li a:hover {
@@ -219,14 +223,69 @@ footer {
 }
 
 .footer-bottom {
-    max-width: 1200px;
-    margin: 30px auto 0;
-    padding-top: 20px;
+    margin: 20px auto 0;
     border-top: 1px solid var(--primary-color);
     text-align: center;
     color: #aaa;
 }
+.about {
+    flex: 2 1 auto;
+}
+.links {
+    flex: 1 1 auto;
+}
+.resources {
+    flex: 1 1 auto;
+}
 
+.contact a{
+    color: var(--text-color);
+    margin: 10px;
+    gap: 10px;
+    text-decoration: none;
+    transition: color .2s;
+    font-weight: 500;
+}
+
+.hover-container {
+    display: inline-block;
+    position: relative;
+}
+.hover-container span {
+    color: var(--text-color);
+}
+
+.image-placeholder {
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 120%;          /* ← 使其在 hover 区正上方弹出 */
+    z-index: 10;
+    min-width: 200px;
+    min-height: 100px;
+    background: rgba(255,255,255,0.85);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border-radius: 12px;
+    overflow: hidden;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.38s cubic-bezier(.36,1.75,.37,.97);
+}
+.hover-container:hover .image-placeholder,
+.hover-container:focus-within .image-placeholder {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.image-placeholder img {
+    display: block;
+    max-width: 200px;
+    max-height: 200px;
+    margin: 12px auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
 @media (max-width: 1200px) {
     .logo img {
         display: none

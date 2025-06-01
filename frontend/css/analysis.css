@@ -5,6 +5,7 @@
     --gradient-dropdown-color: #73946B;
     --accent-color: #e67e22; /* 强调色-橙色 */
     --text-color: #ffffff; /* 正文颜色 */
+    --notes-text-color: rgba(13, 90, 65, 0.72);
     --background-color: rgba(15, 66, 53, 0.4);
     --border-color: rgba(149, 154, 149, 0.56);
     --error-color: #8b0606;
@@ -22,9 +23,7 @@
     display: flex;
     align-items: center;
     font-size: 22px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 25px;
+    padding-bottom: 5px;
 }
 
 .section h2 i {
@@ -32,6 +31,13 @@
     color: #4ecdc4;
 }
 
+.section-notes {
+    font-size: 14px;
+    color: var(--notes-text-color);
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 25px;
+}
 /* 上传区域样式 */
 .upload-container {
     display: flex;
@@ -193,12 +199,19 @@
 }
 
 /* 数据预览区样式 */
+
+
+.preview-section {
+    display: none;
+}
+
+.preview-section.active {
+    display: block;
+}
+
 .preview-controls {
     display: flex;
     gap: 10px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 15px;
 }
 
 .control-btn {
@@ -269,20 +282,20 @@
 }
 
 /* 检测设置区样式 */
-.detection-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
+.detection-section {
+    display: none;
 }
 
-.detection-params,
-.advanced-settings {
+.detection-section.active {
+    display: block;
+}
+
+.detection-params {
     flex: 1;
     min-width: 300px;
 }
 
-.detection-params h3,
-.advanced-settings h3 {
+.detection-params h3 {
     font-size: 18px;
     margin-bottom: 20px;
     padding-bottom: 10px;
@@ -300,7 +313,6 @@
 }
 
 .form-group select,
-.form-group input:not([type="range"], [type="checkbox"]),
 .form-group textarea {
     width: 100%;
     padding: 10px 15px;
@@ -311,80 +323,16 @@
 }
 
 .form-group select:focus,
+.form-group select:hover,
 .form-group input:focus,
 .form-group textarea:focus {
-    border-color: #4ecdc4;
+    border-color: var(--primary-color);
     outline: none;
 }
 
 .form-group textarea {
     height: 100px;
-    resize: vertical;
-}
-
-.range-values {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 5px;
-    color: #666;
-    font-size: 0.9em;
-}
-
-.threshold-value {
-    font-weight: 500;
-}
-
-.checkbox-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.checkbox-group label {
-    display: flex;
-    align-items: center;
-    font-weight: normal;
-    cursor: pointer;
-}
-
-.checkbox-group input[type="checkbox"] {
-    margin-right: 8px;
-}
-
-.range-slider {
-    background-color: #f9f9f9;
-    padding: 15px;
-    border-radius: 4px;
-}
-
-.slider-container {
-    position: relative;
-    height: 15px;
-    margin-top: 10px;
-}
-
-.slider-container input[type="range"] {
-    position: absolute;
-    width: 100%;
-    background: transparent;
-    height: 5px;
-}
-
-.model-params-btn {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    width: 100%;
-    padding: 10px;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: all 0.2s;
-}
-
-.model-params-btn:hover {
-    background-color: #eee;
+    resize: none;
 }
 
 .detection-actions {
@@ -411,7 +359,7 @@
 }
 
 .start-detection-btn {
-    background-color: #1a535c;
+    background-color: var(--primary-color);
     color: white;
     border: none;
     padding: 10px 25px;
@@ -423,10 +371,17 @@
 }
 
 .start-detection-btn:hover {
-    background-color: #12403a;
+    background-color: var(--gradient-dropdown-color);
 }
 
 /* 结果显示区样式 */
+.results-section {
+    display: none;
+}
+.results-section.active{
+    display: block;
+}
+
 .results-container {
     display: flex;
     flex-direction: column;
@@ -515,8 +470,8 @@
 }
 
 .tab-btn.active {
-    border-bottom-color: #4ecdc4;
-    color: #4ecdc4;
+    border-bottom-color: var(--gradient-dropdown-color);
+    color: var(--primary-color);
 }
 
 .tab-pane {
@@ -549,9 +504,9 @@
     color: #e74c3c;
 }
 
-.normal {
-    color: #2ecc71;
-}
+/*.normal {*/
+/*    color: #2ecc71;*/
+/*}*/
 
 .analysis-text h4 {
     margin-top: 20px;
@@ -582,3 +537,4 @@
 .recommendations ul li {
     margin-bottom: 8px;
 }
+
