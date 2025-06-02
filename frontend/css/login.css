@@ -1,0 +1,188 @@
+:root {
+    --primary-color: rgb(0, 111, 79);
+    --secondary-color: #ffffff;
+    --gradient-color: rgb(160, 189, 180);
+    --gradient-dropdown-color: #73946B;
+    --accent-color: #e67e22; /* 强调色-橙色 */
+    --text-color: #ffffff; /* 正文颜色 */
+    --notes-text-color: rgba(13, 90, 65, 0.72);
+    --background-color: rgba(15, 66, 53, 0.4);
+    --border-color: rgba(149, 154, 149, 0.56);
+    --error-color: #8b0606;
+    --error-color-hover: #a42e2e;
+}
+body {
+    background: url('https://uia.njfu.edu.cn/authserver/custom/images/bg1.jpg') no-repeat center center fixed;
+    margin: 0;
+    padding: 0;
+    font-family: 'Microsoft YaHei', Arial, sans-serif;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+
+.logo {
+    display: flex;
+    flex-direction: row;
+    align-items:  center;
+    justify-content: center;
+    gap: 20px;
+    padding-bottom: 20px;
+}
+.logo h1 {
+    color: #ffffff;
+}
+.logo img {
+
+}
+
+.login-form {
+    padding: 38px 30px 30px 30px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+    width: 340px;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px) brightness(90%);
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 10px
+}
+
+.login-form h2 {
+    margin: 0 0 30px 0;
+    font-weight: 700;
+    color: #20232a;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 7px;
+    color: #333;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.input-group input[type="text"],
+.input-group input[type="email"],
+.input-group input[type="password"] {
+    width: 100%;
+    padding: 11px 38px 11px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.input-group input:focus {
+    border-color: var(--primary-color);
+}
+
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #999;
+    font-size: 18px;
+    user-select: none;
+}
+
+.error-message {
+    color: #d93026;
+    font-size: 13px;
+    margin-top: 3px;
+    display: block;
+    min-height: 1em;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+    font-size: 14px;
+}
+
+.options label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.options .forgot-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.15s;
+}
+.options .forgot-link:hover {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.login-button {
+    width: 100%;
+    padding: 12px 0;
+    background: linear-gradient(90deg, var(--primary-color));
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 2px;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.18s;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.login-button:hover {
+    background: #fff;
+    color: var(--primary-color);
+    box-shadow: 0 4px 16px rgba(50, 112, 246, 0.12);
+    transform: translateY(-1px) scale(1.04);
+}
+.login-button:active {
+    /* 弹性动画 */
+    animation: login-button-press 0.22s;
+}
+@keyframes login-button-press {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(0.96);}
+    80%  { transform: scale(1.04);}
+    100% { transform: scale(1);}
+}
+
+.register-link {
+    text-align: center;
+    font-size: 14px;
+}
+.register-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 5px;
+    transition: color 0.15s;
+}
+.register-link a:hover {
+    color: var(--text-color);
+}

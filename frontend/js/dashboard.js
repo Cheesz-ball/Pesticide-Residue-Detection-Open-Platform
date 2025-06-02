@@ -33,13 +33,46 @@ class Dashboard{
                         }
                     },
                     legend: {
-                        data: data.series.map(item => item.name)
+                        data: ["超标次数", "正常次数"]
                     },
                     xAxis: {
                         data: data.categories
                     },
                     yAxis: {},
-                    series: data.series
+                    series: [
+                        {name: "超标次数",
+                            type: "bar",
+                            data: data.series.positive,
+                            itemStyle: {
+                                borderRadius: 5,
+                                color: {
+                                    type: 'linear',
+                                    x: 0, y: 0, x2: 0, y2: 1,
+                                    colorStops: [{
+                                        offset: 0, color: '#dc733c'
+                                    }, {
+                                        offset: 1, color: '#dc540f'
+                                    }]
+                                }
+                            },
+                        },
+                        {name: "正常次数",
+                            type: "bar",
+                            data: data.series.negative,
+                            itemStyle: {
+                                borderRadius: 5,
+                                color: {
+                                    type: 'linear',
+                                    x: 0, y: 0, x2: 0, y2: 1,
+                                    colorStops: [{
+                                        offset: 0, color: 'rgb(42,177,138)'
+                                    }, {
+                                        offset: 1, color: 'rgb(4,145,104)'
+                                    }]
+                                }
+                            },
+                        },
+                    ],
                 };
                 exceeding_rate.setOption(option);
             })
@@ -99,50 +132,173 @@ class Dashboard{
                             type: 'line',
                             data: data.series[0].data,
                             itemStyle: {
-                                color: '#FF0000' // 红色
+                                color: '#dc733c'
                             },
                             lineStyle: {
-                                color: '#FF0000' // 红色
+                                color: '#dc540f',
+                                width: 3
                             },
                             markPoint: {
+                                symbol: 'pin', // 使用图钉形状
+                                symbolSize: 35,
+                                label: {
+                                    color: '#fff',
+                                    fontSize: 12,
+                                },
+                                itemStyle: {
+                                    color: '#dc540f',
+                                    borderColor: '#9e3907',
+                                    borderWidth: 2
+                                },
                                 data: [
-                                    {type: 'max', name: 'Max'},
-                                    {type: 'min', name: 'Min'}
+                                    {
+                                        type: 'max',
+                                        name: '最大值',
+                                        symbolRotate: 0,
+                                        label: {
+
+                                        }
+                                    },
+                                    {
+                                        type: 'min',
+                                        name: '最小值',
+                                        symbolRotate: 0,
+                                        label: {
+                                        }
+                                    }
                                 ]
                             },
                             markLine: {
-                                data: [{type: 'average', name: 'Avg'}]
+                                symbol: ['none', 'none'],
+                                lineStyle: {
+                                    type: 'dashed',
+                                    width: 2,
+                                    color: '#dc540f',
+                                    opacity: 0.7
+                                },
+                                label: {
+                                    position: 'insideMiddleTop',
+                                    formatter: '平均值: {c}',
+                                    color: '#dc540f',
+                                    fontSize: 12
+                                },
+                                data: [
+                                    {
+                                        type: 'average',
+                                        name: '平均值'
+                                    },
+                                    {
+                                        name: '最低点连线',
+                                        type: 'min',
+                                        lineStyle: {
+                                            type: 'solid',
+                                            width: 1
+                                        },
+                                        label: {
+                                            show: true,
+                                            position: 'end',
+                                            formatter: '最低: {c}'
+                                        }
+                                    },
+                                    {
+                                        name: '最高点连线',
+                                        type: 'max',
+                                        lineStyle: {
+                                            type: 'solid',
+                                            width: 1
+                                        },
+                                        label: {
+                                            show: true,
+                                            position: 'end',
+                                            formatter: '最高: {c}'
+                                        }
+                                    }
+                                ]
                             }
                         },
                         {
                             name: '正常次数',
                             type: 'line',
                             data: data.series[1].data,
+                            itemStyle: {
+                                color: 'rgb(42,177,138)'
+                            },
+                            lineStyle: {
+                                color: 'rgb(4,145,104)',
+                                width: 3
+                            },
                             markPoint: {
+                                symbol: 'pin',
+                                symbolSize: 35,
+                                label: {
+                                    color: '#ffffff',
+                                    fontSize: 12,
+                                },
+                                itemStyle: {
+                                    color: 'rgb(4,145,104)',
+                                    borderColor: '#03533c',
+                                    borderWidth: 2
+                                },
                                 data: [
-                                    {type: 'max', name: 'Max'},
-                                    {type: 'min', name: 'Min'}
+                                    {
+                                        type: 'max',
+                                        name: '最大值',
+                                        label: {
+                                        }
+                                    },
+                                    {
+                                        type: 'min',
+                                        name: '最小值',
+                                        label: {
+                                        }
+                                    }
                                 ]
                             },
                             markLine: {
+                                symbol: ['none', 'none'],
+                                lineStyle: {
+                                    type: 'dashed',
+                                    width: 2,
+                                    color: 'rgb(4,145,104)',
+                                    opacity: 0.7
+                                },
+                                label: {
+                                    position: 'insideMiddleBottom',
+                                    formatter: '平均值: {c}',
+                                    color: 'rgb(4,145,104)',
+                                    fontSize: 12
+                                },
                                 data: [
-                                    {type: 'average', name: 'Avg'},
-                                    [
-                                        {
-                                            symbol: 'none',
-                                            x: '90%',
-                                            yAxis: 'max'
+                                    {
+                                        type: 'average',
+                                        name: '平均值'
+                                    },
+                                    {
+                                        name: '最低点连线',
+                                        type: 'min',
+                                        lineStyle: {
+                                            type: 'solid',
+                                            width: 1
                                         },
-                                        {
-                                            symbol: 'circle',
-                                            label: {
-                                                position: 'start',
-                                                formatter: 'Max'
-                                            },
-                                            type: 'max',
-                                            name: '最高点'
+                                        label: {
+                                            show: true,
+                                            position: 'end',
+                                            formatter: '最低: {c}'
                                         }
-                                    ]
+                                    },
+                                    {
+                                        name: '最高点连线',
+                                        type: 'max',
+                                        lineStyle: {
+                                            type: 'solid',
+                                            width: 1
+                                        },
+                                        label: {
+                                            show: true,
+                                            position: 'end',
+                                            formatter: '最高: {c}'
+                                        }
+                                    }
                                 ]
                             }
                         }

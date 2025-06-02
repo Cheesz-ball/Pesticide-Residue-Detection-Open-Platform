@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册界面</title>
+    <link rel="stylesheet" href="css/login.css">
+    <script src="js/login.js" defer></script>
+</head>
+<body>
+<div class="login-container">
+    <div class="logo">
+        <img alt="农药检测" src="./src/image/logo.png">
+        <h1>农药残留开放检测平台 - 注册</h1>
+    </div>
+    <form class="login-form" id="registerForm" autocomplete="off">
+        <div class="input-group">
+            <label for="username">用户名</label>
+            <input type="text" id="username" name="username" placeholder="请输入用户名" required>
+            <span class="error-message" id="user-error"></span>
+        </div>
+        <div class="input-group">
+            <label for="email">邮箱</label>
+            <input type="email" id="email" name="email" placeholder="请输入邮箱" required>
+            <span class="error-message" id="email-error"></span>
+        </div>
+        <div class="input-group">
+            <label for="password">密码</label>
+            <div class="password-wrapper">
+                <input type="password" id="password" name="password" placeholder="请输入密码" required>
+                <span class="toggle-password" id="togglePassword1">
+                    <i class="ri-eye-off-line"></i>  <!-- ADD THIS ICON -->
+                </span>
+            </div>
+            <span class="error-message" id="pass-error"></span>
+        </div>
+        <div class="input-group">
+            <label for="password2">确认密码</label>
+            <div class="password-wrapper">
+                <input type="password" id="password2" name="password2" placeholder="请再次输入密码" required>
+                <span class="toggle-password" id="togglePassword2">
+                    <i class="ri-eye-off-line"></i>  <!-- ADD THIS ICON -->
+                </span>
+            </div>
+            <span class="error-message" id="pass2-error"></span>
+        </div>
+        <button type="submit" class="login-button">注册</button>
+        <div class="register-link">
+            已有账号？<a href="login.html">立即登录</a>
+        </div>
+        <div id="form-error" class="error-message" style="text-align: center; margin-top: 10px;"></div>
+    </form>
+</div>
+
+
+</body>
+</html>
